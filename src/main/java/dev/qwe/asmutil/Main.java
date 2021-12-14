@@ -19,7 +19,7 @@ public class Main {
         // or add to -cp jars + rt.jar for jre8
 
 //        Class.forName("org.apache.logging.log4j.core.layout.PatternLayout")
-        new FileProcessHandler().loadFile(new FileInputStream("spigot.jar"))
+        new FileProcessHandler().loadFile(new FileInputStream("asmtest.jar"))
 //                .editFile()
                 .saveFile(new FileOutputStream("asmtest-out.jar"))
         ;
