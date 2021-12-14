@@ -3,12 +3,14 @@ package dev.qwe.asmutil.handler;
 import dev.qwe.asmutil.node.FileClassNode;
 import dev.qwe.asmutil.node.FileEntryNode;
 import dev.qwe.asmutil.utils.ByteUtils;
+import dev.qwe.asmutil.utils.PrinterUtils;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -57,6 +59,8 @@ public class FileProcessHandler {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
             entryNodes.forEach(entryNode -> ByteUtils.writeBytesToZip(zipOutputStream, entryNode.entry(), entryNode.data()));
             classNodes.forEach(classNode -> {
+                PrinterUtils.log("Saving " + classNode.entry().getName());
+                // COMPUTE_FRAMES -> COMPUTE_MAX if ClassNotFound error, skip frames!
                 ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
                 classNode.data().accept(writer);
                 ByteUtils.writeBytesToZip(zipOutputStream, classNode.entry(), writer.toByteArray());

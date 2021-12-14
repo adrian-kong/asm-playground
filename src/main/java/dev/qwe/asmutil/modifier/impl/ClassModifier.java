@@ -8,7 +8,7 @@ public class ClassModifier implements IClassModifier {
     @Override
     public void modify(ClassNode classNode) {
         for (MethodNode methodNode : classNode.methods) {
-            if (methodNode.name.equals("net/minecraft/server/v1_8_R3/ChatComponentScore$ServerCommand")) {
+            if (methodNode.name.equals("main")) {
                 for (AbstractInsnNode insnNode : methodNode.instructions.toArray()) {
                     switch (insnNode) {
                         case LineNumberNode i -> System.out.println(i);
