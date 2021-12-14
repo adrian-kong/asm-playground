@@ -13,9 +13,12 @@ mvn clean install
 
 Current run
 ```java
-var processHandler = new FileProcessHandler().loadFile(new FileInputStream("asmtext.jar"))         // Load file
+var processHandler = new FileProcessHandler().loadModifiers("dev/Main", new ClassModifier());      // Load custom modifier
+                                             .loadFile(new FileInputStream("asmtext.jar"))         // Load file
                                              .editFile()                                           // Modify file
                                              .saveFile(new FileOutputStream("asmtest-out.jar"));   // Save file
 ```
+
+Modify/add new 
 
 Add file to classpath if necessary (?)

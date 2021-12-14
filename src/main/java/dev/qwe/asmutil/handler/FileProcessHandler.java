@@ -1,5 +1,6 @@
 package dev.qwe.asmutil.handler;
 
+import dev.qwe.asmutil.modifier.IClassModifier;
 import dev.qwe.asmutil.node.FileClassNode;
 import dev.qwe.asmutil.node.FileEntryNode;
 import dev.qwe.asmutil.utils.ByteUtils;
@@ -25,8 +26,10 @@ public class FileProcessHandler {
 
     private final ClassEditHandler editHandler = new ClassEditHandler();
 
-    public FileProcessHandler loadEditors() {
-        editHandler.loadMap();
+    public FileProcessHandler loadEditors(String name, IClassModifier classModifier) {
+        // TODO: editors ?
+        // editHandler.loadMap();
+        editHandler.addModifier(name, classModifier);
         return this;
     }
 

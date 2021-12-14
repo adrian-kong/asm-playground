@@ -2,6 +2,7 @@ package dev.qwe.asmutil.handler;
 
 import dev.qwe.asmutil.modifier.IClassModifier;
 import dev.qwe.asmutil.modifier.impl.ClassModifier;
+import dev.qwe.asmutil.utils.PrinterUtils;
 import org.objectweb.asm.tree.ClassNode;
 
 import java.io.BufferedReader;
@@ -13,9 +14,7 @@ import java.util.Map;
 
 public class ClassEditHandler {
 
-    private final Map<String, IClassModifier> modifiedClassMap = new HashMap<>() {{
-        put("dev/Main", new ClassModifier());
-    }};
+    private final Map<String, IClassModifier> modifiedClassMap = new HashMap<>();
 
     public void loadMap() {
 //        try (BufferedReader reader = Files.newBufferedReader(new File("config.txt").toPath())) {
@@ -25,6 +24,10 @@ public class ClassEditHandler {
 //        }
     }
 
+    public void addModifier(String name, IClassModifier classModifier) {
+        modifiedClassMap.put(name, classModifier);
+        PrinterUtils.log("Editing class " + name);
+    }
 
     public void modifyClassNode(ClassNode node) {
         if (modifiedClassMap.containsKey(node.name)) {

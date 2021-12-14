@@ -1,6 +1,7 @@
 package dev.qwe.asmutil;
 
 import dev.qwe.asmutil.handler.FileProcessHandler;
+import dev.qwe.asmutil.modifier.impl.ClassModifier;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +20,9 @@ public class Main {
         // or add to -cp jars + rt.jar for jre8
 
 //        Class.forName("org.apache.logging.log4j.core.layout.PatternLayout")
-        new FileProcessHandler().loadFile(new FileInputStream("asmtest.jar"))
+        new FileProcessHandler()
+                .loadEditors("dev/Main", new ClassModifier())
+                .loadFile(new FileInputStream("asmtest.jar"))
 //                .editFile()
                 .saveFile(new FileOutputStream("asmtest-out.jar"))
         ;
