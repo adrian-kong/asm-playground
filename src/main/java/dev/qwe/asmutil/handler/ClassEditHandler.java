@@ -32,6 +32,7 @@ public class ClassEditHandler {
             if (classVisitorMap.containsKey(entry.getName())) {
                 ClassReader reader = new ClassReader(bytes);
                 ClassWriter writer = new ClassWriter(reader, COMPUTE_FRAMES);
+
                 Class<? extends ClassVisitor> clazz = classVisitorMap.get(entry.getName());
                 ClassVisitor classVisitor = clazz.getDeclaredConstructor(int.class, ClassVisitor.class).newInstance(ASM9, writer);
                 reader.accept(classVisitor, 0);
@@ -41,9 +42,5 @@ public class ClassEditHandler {
             ex.printStackTrace();
         }
         return bytes;
-    }
-
-    public Map<String, Class<? extends ClassVisitor>> getClassVisitorMap() {
-        return classVisitorMap;
     }
 }

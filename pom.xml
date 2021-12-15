@@ -23,6 +23,7 @@
     </build>
     <modules>
         <module>example</module>
+        <module>agent-dumper</module>
     </modules>
     <properties>
         <maven.compiler.source>16</maven.compiler.source>

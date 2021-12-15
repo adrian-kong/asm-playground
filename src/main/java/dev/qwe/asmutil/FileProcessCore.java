@@ -36,8 +36,7 @@ public class FileProcessCore {
         try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
-                byte[] bytes = zipInputStream.readAllBytes();
-                fileEntry.put(entry, bytes);
+                addFileEntries(entry, zipInputStream.readAllBytes());
             }
         }
         return this;
@@ -52,5 +51,9 @@ public class FileProcessCore {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
             fileEntry.forEach(new ZipCollectTask(zipOutputStream));
         }
+    }
+
+    public void addFileEntries(ZipEntry entry, byte[] bytes) {
+        fileEntry.put(entry, bytes);
     }
 }

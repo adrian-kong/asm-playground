@@ -5,7 +5,7 @@ import dev.qwe.asmutil.FileProcessCore;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-public class Example {
+public class ExampleMain {
 
     public static void main(String[] args) throws Exception {
         // Java 9+ can't add to classpath on runtime anymore (?) need custom classloader program args

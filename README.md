@@ -2,7 +2,7 @@
 
 Load, modify and save JAR file
 
-Uses [ASM](https://asm.ow2.io/)
+Uses [ASM](https://asm.ow2.io/), JDK 17 
 
 ### Usage
 
@@ -31,6 +31,7 @@ Add files to classpath if necessary (?)
 
 Currently, to modify classes create a custom ClassModifier;
 
+### See [example](https://github.com/adrian-kong/asm-playground/tree/master/example)
 ```java
 
 // Call #loadModifier with this class
@@ -68,3 +69,6 @@ public class CustomClassModifier extends ClassVisitor {
 }
 ```
 
+### See [agent](https://github.com/adrian-kong/asm-playground/tree/master/agent)
+
+WIP, attach as `-javaagent` and to download JAR (?) maybe via runtime if possible
