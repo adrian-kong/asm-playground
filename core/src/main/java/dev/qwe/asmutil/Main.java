@@ -1,16 +1,13 @@
 package dev.qwe.asmutil;
 
+import dev.qwe.asmutil.example.MainClassVisitor;
 import dev.qwe.asmutil.handler.FileProcessHandler;
-import dev.qwe.asmutil.modifier.impl.ClassModifier;
+import org.objectweb.asm.ClassVisitor;
+import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Opcodes;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.jar.JarFile;
 
 public class Main {
 
@@ -21,9 +18,9 @@ public class Main {
 
 //        Class.forName("org.apache.logging.log4j.core.layout.PatternLayout")
         new FileProcessHandler()
-                .loadEditors("dev/Main", new ClassModifier())
-                .loadFile(new FileInputStream("asmtest.jar"))
-//                .editFile()
+                .loadEditors("net/minecraft/server/v1_8_R3/ChatComponentScore$ServerCommand.class", MainClassVisitor.class)
+                .loadFile(new FileInputStream("test.jar"))
+                .editClasses()
                 .saveFile(new FileOutputStream("asmtest-out.jar"))
         ;
     }
