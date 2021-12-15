@@ -15,7 +15,7 @@ Current run
 ```java
 // jar inputs
 String jarIn = "asmtext.jar";                                           
-String jarOut = "asmtest-out.jar
+String jarOut = "asmtest-out.jar";
 
 String className = "dev/Main.class";                                         // Class name to visit
 ClassVisitor classVisitor = new MainClassVisitor();                          // Override a class visitor implementation
