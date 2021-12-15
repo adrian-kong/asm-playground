@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 
 import static org.objectweb.asm.ClassWriter.COMPUTE_FRAMES;
+import static org.objectweb.asm.Opcodes.ASM9;
 
 public class ClassEditHandler {
 
@@ -32,7 +33,7 @@ public class ClassEditHandler {
                 ClassReader reader = new ClassReader(bytes);
                 ClassWriter writer = new ClassWriter(reader, COMPUTE_FRAMES);
                 Class<? extends ClassVisitor> clazz = classVisitorMap.get(entry.getName());
-                ClassVisitor classVisitor = clazz.getDeclaredConstructor(ClassVisitor.class).newInstance(writer);
+                ClassVisitor classVisitor = clazz.getDeclaredConstructor(int.class, ClassVisitor.class).newInstance(ASM9, writer);
                 reader.accept(classVisitor, 0);
                 return writer.toByteArray();
             }

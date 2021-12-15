@@ -12,8 +12,8 @@ import static org.objectweb.asm.Opcodes.ASM9;
  */
 public class MainClassVisitor extends ClassVisitor {
 
-    public MainClassVisitor(ClassVisitor classVisitor) {
-        super(ASM9, classVisitor);
+    public MainClassVisitor(int api, ClassVisitor classVisitor) {
+        super(api, classVisitor);
     }
 
     @Override

@@ -28,8 +28,6 @@ public class FileProcessHandler {
     }
 
     /**
-     * Loads jar file to process
-     *
      * @param inputStream of jar
      * @throws IOException should be handled by caller
      * @see <a href="https://www.javadoc.io/static/org.ow2.asm/asm/5.2/org/objectweb/asm/ClassReader.html">ClassReader</a>
@@ -46,22 +44,11 @@ public class FileProcessHandler {
         return this;
     }
 
-    /**
-     * Edits loaded jar file to process
-     *
-     * @return instance
-     */
     public FileProcessHandler editClasses() {
         fileEntry.replaceAll(editHandler::modifyClass);
         return this;
     }
 
-    /**
-     * Saves processed jar file
-     *
-     * @param outputStream to save
-     * @throws IOException should be handled by caller
-     */
     public void saveFile(OutputStream outputStream) throws IOException {
         try (ZipOutputStream zipOutputStream = new ZipOutputStream(outputStream)) {
             fileEntry.forEach(new ZipCollectTask(zipOutputStream));
