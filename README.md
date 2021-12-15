@@ -21,7 +21,7 @@ String jarOut = "asmtest-out.jar";
 
 String className = "dev/Main.class";                                        // Class name to visit
         
-new FileProcessHandler().loadModifiers(className,ClassModifier.class);      // Load custom modifier
+new FileProcessCore().loadModifiers(className,ClassModifier.class);      // Load custom modifier
         .loadFile(new FileInputStream(jarIn))                               // Load file
         .editClasses()                                                      // Modifies classes
         .saveFile(new FileOutputStream(jarOut));                            // Save file
@@ -34,7 +34,7 @@ Currently, to modify classes create a custom ClassModifier;
 ```java
 
 // Call #loadModifier with this class
-new FileProcessHandler().loadModifiers(className,CustomClassModifier.class);
+new FileProcessCore().loadModifiers(className,CustomClassModifier.class);
 
 /**
  * Custom sample class visitor

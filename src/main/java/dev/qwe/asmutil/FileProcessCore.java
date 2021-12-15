@@ -1,10 +1,9 @@
-package dev.qwe.asmutil.handler;
+package dev.qwe.asmutil;
 
-import dev.qwe.asmutil.utils.PrinterUtils;
+import dev.qwe.asmutil.handler.ClassEditHandler;
 import dev.qwe.asmutil.utils.ZipCollectTask;
 import org.objectweb.asm.ClassVisitor;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,13 +13,13 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-public class FileProcessHandler {
+public class FileProcessCore {
 
     private final Map<ZipEntry, byte[]> fileEntry = new HashMap<>();
 
     private final ClassEditHandler editHandler = new ClassEditHandler();
 
-    public FileProcessHandler loadEditors(String name, Class<? extends ClassVisitor> classVisitor) {
+    public FileProcessCore loadEditors(String name, Class<? extends ClassVisitor> classVisitor) {
         // TODO: editors ?
         // editHandler.loadMap();
         editHandler.addModifier(name, classVisitor);
@@ -32,7 +31,7 @@ public class FileProcessHandler {
      * @throws IOException should be handled by caller
      * @see <a href="https://www.javadoc.io/static/org.ow2.asm/asm/5.2/org/objectweb/asm/ClassReader.html">ClassReader</a>
      */
-    public FileProcessHandler loadFile(InputStream inputStream) throws IOException {
+    public FileProcessCore loadFile(InputStream inputStream) throws IOException {
         fileEntry.clear();
         try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
@@ -44,7 +43,7 @@ public class FileProcessHandler {
         return this;
     }
 
-    public FileProcessHandler editClasses() {
+    public FileProcessCore editClasses() {
         fileEntry.replaceAll(editHandler::modifyClass);
         return this;
     }
