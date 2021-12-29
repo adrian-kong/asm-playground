@@ -69,6 +69,8 @@ public class CustomClassModifier extends ClassVisitor {
 }
 ```
 
+Classes can also be overridden by loading two separate jars and overriding byte arrays. (No errors handled)
+
 ### See [agent](https://github.com/adrian-kong/asm-playground/tree/master/agent)
 
 WIP, attach as `-javaagent` and to download JAR (?) maybe via runtime if possible
