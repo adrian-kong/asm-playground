@@ -1,5 +1,6 @@
 package dev.qwe.asmutil.handler;
 
+import dev.qwe.asmutil.utils.ClassUtil;
 import dev.qwe.asmutil.utils.PrinterUtils;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -28,19 +29,8 @@ public class ClassEditHandler {
     }
 
     public byte[] modifyClass(ZipEntry entry, byte[] bytes) {
-        try {
-            if (classVisitorMap.containsKey(entry.getName())) {
-                ClassReader reader = new ClassReader(bytes);
-                ClassWriter writer = new ClassWriter(reader, COMPUTE_FRAMES);
-
-                Class<? extends ClassVisitor> clazz = classVisitorMap.get(entry.getName());
-                ClassVisitor classVisitor = clazz.getDeclaredConstructor(int.class, ClassVisitor.class).newInstance(ASM9, writer);
-                reader.accept(classVisitor, 0);
-                return writer.toByteArray();
-            }
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException ex) {
-            ex.printStackTrace();
-        }
+        if (classVisitorMap.containsKey(entry.getName()))
+            return ClassUtil.visit(bytes, classVisitorMap.get(entry.getName()));
         return bytes;
     }
 }

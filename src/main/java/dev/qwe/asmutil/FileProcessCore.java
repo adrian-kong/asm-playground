@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -36,10 +38,14 @@ public class FileProcessCore {
         try (ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
             while ((entry = zipInputStream.getNextEntry()) != null) {
-                addFileEntries(entry, zipInputStream.readAllBytes());
+                putFileEntry(entry, zipInputStream.readAllBytes());
             }
         }
         return this;
+    }
+
+    public Optional<Entry<ZipEntry, byte[]>> getEntryByName(String name) {
+        return fileEntry.entrySet().stream().filter(entry -> entry.getKey().getName().equals(name)).findFirst();
     }
 
     public FileProcessCore editClasses() {
@@ -53,7 +59,7 @@ public class FileProcessCore {
         }
     }
 
-    public void addFileEntries(ZipEntry entry, byte[] bytes) {
+    public void putFileEntry(ZipEntry entry, byte[] bytes) {
         fileEntry.put(entry, bytes);
     }
 }
